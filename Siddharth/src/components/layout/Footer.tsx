@@ -35,22 +35,24 @@ export function Footer() {
                     <div className="space-y-6">
                         <h4 className="text-xs font-black uppercase tracking-[0.3em] text-white/60">Connect With Us</h4>
                         <div className="flex items-center gap-4">
-                            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-[#f2ae1b] hover:text-black transition-all group">
+                            <a href={import.meta.env.VITE_FACEBOOK_URL || "https://facebook.com"} target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-[#f2ae1b] hover:text-black transition-all group">
                                 <Facebook className="w-5 h-5" />
                             </a>
-                            <a href="https://github.com/martinsharma17/" target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-white hover:text-black transition-all group">
+                            <a href={import.meta.env.VITE_GITHUB_URL || "https://github.com/martinsharma17/"} target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-white hover:text-black transition-all group">
                                 <Github className="w-5 h-5" />
                             </a>
-                            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-all group">
+                            <a href={import.meta.env.VITE_TWITTER_URL || "https://twitter.com"} target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-all group">
                                 <Twitter className="w-5 h-5" />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-[#0A66C2] hover:text-white transition-all group">
+                            <a href={import.meta.env.VITE_LINKEDIN_URL || "https://linkedin.com"} target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-[#0A66C2] hover:text-white transition-all group">
                                 <Linkedin className="w-5 h-5" />
                             </a>
                         </div>
                         <div className="pt-2">
                             <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">Support Line</p>
-                            <p className="text-lg font-black text-[#f2ae1b]">+977 1 5970020</p>
+                            <p className="text-lg font-black text-[#f2ae1b]">
+                                {import.meta.env.VITE_SUPPORT_PHONE || "+977 1 5970020"}
+                            </p>
                         </div>
                     </div>
                 </div>

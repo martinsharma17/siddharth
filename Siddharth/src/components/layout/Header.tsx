@@ -26,7 +26,9 @@ export function Header() {
 
                 <div className="flex flex-col items-end gap-1.5 opacity-80 border-l-2 border-black/10 pl-6 hidden md:block group cursor-help">
                     <p className="text-[10px] font-black uppercase tracking-widest leading-none text-black/50 group-hover:text-black transition-colors">Assistance</p>
-                    <p className="text-xl font-black leading-none group-hover:scale-105 transition-transform">+977 1 5970020</p>
+                    <p className="text-xl font-black leading-none group-hover:scale-105 transition-transform">
+                        {import.meta.env.VITE_SUPPORT_PHONE || "+977 1 5970020"}
+                    </p>
                 </div>
             </div>
         </div>
