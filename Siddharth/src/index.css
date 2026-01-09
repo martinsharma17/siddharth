@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@config "../tailwind.config.js";
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 :root {
   --primary: #f2ae1b;
@@ -74,4 +74,131 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+/* Premium UI Design System */
+:root {
+  --bank-gold: #f2ae1b;
+  --bank-gold-dark: #e19e10;
+  --bank-blue: #0B3C5D;
+  --bg-soft: #f8fafc;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+body {
+  background-color: var(--bg-soft);
+  color: #1e293b;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  border-radius: 20px;
+}
+
+/* Modern Inputs */
+.modern-input {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: white;
+}
+
+.modern-input:focus {
+  border-color: var(--bank-gold);
+  box-shadow: 0 0 0 4px rgba(242, 174, 27, 0.1);
+  outline: none;
+}
+
+.modern-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Premium Buttons */
+.btn-premium {
+  background: linear-gradient(135deg, var(--bank-gold) 0%, var(--bank-gold-dark) 100%);
+  color: white !important;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(242, 174, 27, 0.3);
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(242, 174, 27, 0.4);
+  filter: brightness(1.05);
+}
+
+.btn-premium:active {
+  transform: translateY(0);
+}
+
+/* Section Header */
+.section-title {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-weight: 800;
+  color: var(--bank-blue);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 4px;
+  background: var(--bank-gold);
+  border-radius: 2px;
+}
+
+.premium-captcha {
+  background: repeating-linear-gradient(45deg,
+      #f8fafc,
+      #f8fafc 10px,
+      #f1f5f9 10px,
+      #f1f5f9 20px);
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  font-family: 'Monaco', 'Consolas', monospace;
+  font-weight: 900;
+  letter-spacing: 0.5em;
+  color: #1e293b;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
+  user-select: none;
+  min-width: 140px;
+  height: 50px;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #0B3C5D 0%, #06243a 100%);
+}
+
+.hero-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
 }

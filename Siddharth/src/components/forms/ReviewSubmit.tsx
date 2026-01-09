@@ -38,30 +38,31 @@ export function ReviewSubmit() {
             title="Step 5: Review & Submit"
             description="Please verify your details before final submission."
         >
-            <div className="space-y-6">
+            <div className="d-flex flex-column gap-4">
                 {sections.map((section) => (
-                    <div key={section.title} className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100 space-y-4">
-                        <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest border-b border-gray-200 pb-2">{section.title}</h4>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div key={section.title} className="p-4 bg-light bg-opacity-50 rounded-3 border border-light">
+                        <h4 className="small fw-bold text-uppercase text-muted border-bottom border-light pb-2 mb-3" style={{ fontSize: '10px', letterSpacing: '0.1em' }}>{section.title}</h4>
+                        <div className="row row-cols-2 row-cols-md-3 g-3">
                             {section.items.map(item => (
-                                <div key={item.label}>
-                                    <p className="text-[10px] text-gray-500 font-bold uppercase tracking-tight">{item.label}</p>
-                                    <p className="text-sm font-extrabold text-[#1a1a1a]">{item.value}</p>
+                                <div key={item.label} className="col">
+                                    <p className="small text-secondary fw-bold text-uppercase mb-0" style={{ fontSize: '10px' }}>{item.label}</p>
+                                    <p className="small fw-bold text-dark mb-0">{item.value}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 ))}
 
-                <div className="flex gap-4 items-start p-6 bg-green-50 rounded-[1.5rem] border border-green-100">
-                    <div className="p-2 bg-white rounded-lg shadow-sm">
-                        <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <div className="d-flex gap-3 align-items-start p-4 bg-success bg-opacity-10 rounded-4 border border-success border-opacity-25">
+                    <div className="p-2 bg-white rounded-3 shadow-sm d-flex">
+                        <CheckCircle2 size={20} className="text-success" />
                     </div>
-                    <p className="text-xs text-green-800 font-bold leading-relaxed">
+                    <p className="small text-success fw-medium mb-0" style={{ fontSize: '12px' }}>
                         I hereby declare that the information provided above is true and correct. I authorize Siddhartha Bank to verify any information provided. I have read and agree to the Bank's Digital Banking Terms of Service.
                     </p>
                 </div>
             </div>
         </FormStepLayout>
+
     )
 }

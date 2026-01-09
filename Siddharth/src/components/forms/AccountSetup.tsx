@@ -32,60 +32,63 @@ export function AccountSetup() {
             title="Step 1: Account Setup"
             description="Select your preferred product and account type."
         >
-            <div className="space-y-4">
-                <label className="text-[13px] font-black text-gray-800 uppercase tracking-wide ml-0.5">Account Type</label>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="mb-4">
+                <label className="form-label small fw-bold text-uppercase text-dark mb-3">Account Type</label>
+                <div className="row g-3">
                     {radioCards.map((card) => {
                         const Icon = card.icon
                         const isSelected = accountType === card.id
 
                         return (
-                            <button
-                                key={card.id}
-                                type="button"
-                                onClick={() => setValue("accountType", card.id as any)}
-                                className={cn(
-                                    "flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all",
-                                    isSelected
-                                        ? "border-[#f2ae1b] bg-[#f2ae1b]/5 ring-1 ring-[#f2ae1b]"
-                                        : "border-gray-50 hover:border-gray-100 bg-gray-50/20"
-                                )}
-                            >
-                                <div className={cn(
-                                    "p-2.5 rounded-lg",
-                                    isSelected ? "bg-[#f2ae1b] text-white" : "bg-gray-100 text-gray-400"
-                                )}>
-                                    <Icon className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <h4 className="font-extrabold text-sm text-[#1a1a1a] uppercase tracking-tight">{card.label}</h4>
-                                    <p className="text-[11px] text-gray-500 leading-tight font-medium mt-0.5">{card.desc}</p>
-                                </div>
-                            </button>
+                            <div key={card.id} className="col-12 col-md-6">
+                                <button
+                                    type="button"
+                                    onClick={() => setValue("accountType", card.id as any)}
+                                    className={cn(
+                                        "w-100 d-flex align-items-start gap-3 p-4 rounded-3 border-2 text-start transition-all",
+                                        isSelected
+                                            ? "border-warning bg-warning bg-opacity-10"
+                                            : "border-light bg-light bg-opacity-25"
+                                    )}
+                                    style={{ borderStyle: 'solid' }}
+                                >
+                                    <div className={cn(
+                                        "p-2 rounded-3",
+                                        isSelected ? "bg-warning text-dark" : "bg-light text-muted"
+                                    )}>
+                                        <Icon size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="fw-bold fs-6 text-dark text-uppercase mb-1">{card.label}</h4>
+                                        <p className="small text-secondary mb-0" style={{ fontSize: '11px' }}>{card.desc}</p>
+                                    </div>
+                                </button>
+                            </div>
                         )
                     })}
                 </div>
             </div>
 
-            <div className="space-y-4 pt-2">
-                <div className="flex flex-col md:flex-row md:items-center justify-between p-5 bg-gray-50/50 rounded-xl border border-gray-100 gap-4">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-white rounded-lg shadow-sm">
-                            <ShieldCheck className="w-4 h-4 text-[#f2ae1b]" />
+            <div className="pt-2">
+                <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between p-4 bg-light bg-opacity-50 rounded-3 border border-light gap-4">
+                    <div className="d-flex align-items-center gap-3">
+                        <div className="p-2 bg-white rounded-3 shadow-sm d-flex">
+                            <ShieldCheck size={18} className="text-warning" />
                         </div>
                         <div>
-                            <p className="text-sm font-extrabold text-[#1a1a1a] uppercase tracking-tight leading-none">Existing Customer?</p>
-                            <p className="text-[11px] text-gray-500 font-medium mt-1">Already have an account with Siddhartha Bank?</p>
+                            <p className="small fw-bold text-dark text-uppercase mb-0">Existing Customer?</p>
+                            <p className="small text-secondary mb-0" style={{ fontSize: '11px' }}>Already have an account with Siddhartha Bank?</p>
                         </div>
                     </div>
-                    <div className="flex bg-white p-1 rounded-lg border border-gray-200 self-start md:self-auto shadow-sm">
+                    <div className="d-flex bg-white p-1 rounded-3 border border-light shadow-sm">
                         <button
                             type="button"
                             onClick={() => setValue("isExistingCustomer", true)}
                             className={cn(
-                                "px-5 py-2 text-[11px] font-black rounded-md transition-all uppercase tracking-wider",
-                                isExistingCustomer ? "bg-[#f2ae1b] text-black shadow-sm" : "text-gray-400 hover:bg-gray-50"
+                                "px-4 py-2 small fw-bold rounded-2 transition-all text-uppercase",
+                                isExistingCustomer ? "bg-warning text-dark" : "text-muted"
                             )}
+                            style={{ fontSize: '11px', border: 'none' }}
                         >
                             YES
                         </button>
@@ -93,9 +96,10 @@ export function AccountSetup() {
                             type="button"
                             onClick={() => setValue("isExistingCustomer", false)}
                             className={cn(
-                                "px-5 py-2 text-[11px] font-black rounded-md transition-all uppercase tracking-wider",
-                                !isExistingCustomer ? "bg-[#f2ae1b] text-black shadow-sm" : "text-gray-400 hover:bg-gray-50"
+                                "px-4 py-2 small fw-bold rounded-2 transition-all text-uppercase",
+                                !isExistingCustomer ? "bg-warning text-dark" : "text-muted"
                             )}
+                            style={{ fontSize: '11px', border: 'none' }}
                         >
                             NO
                         </button>
@@ -103,5 +107,6 @@ export function AccountSetup() {
                 </div>
             </div>
         </FormStepLayout>
+
     )
 }

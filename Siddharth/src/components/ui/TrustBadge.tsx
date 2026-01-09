@@ -6,11 +6,12 @@ interface TrustBadgeProps {
 
 export function TrustBadge({ label }: TrustBadgeProps) {
     return (
-        <div className="flex items-center gap-2.5 text-[10px] font-black uppercase tracking-[0.2em] text-gray-600">
-            <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
-                <Check className="w-3 h-3 text-green-600" />
+        <div className="d-flex align-items-center gap-2 small fw-bold text-uppercase text-secondary" style={{ fontSize: '10px', letterSpacing: '0.2em' }}>
+            <div className="bg-light rounded-circle d-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px' }}>
+                <Check size={12} className="text-success" />
             </div>
             {label}
         </div>
+
     )
 }

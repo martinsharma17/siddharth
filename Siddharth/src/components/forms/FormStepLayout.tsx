@@ -12,15 +12,16 @@ export function FormStepLayout({ title, description, children }: FormStepLayoutP
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="space-y-5"
+            className="d-flex flex-column gap-4"
         >
-            <div className="space-y-1">
-                <h2 className="text-xl font-black text-[#1a1a1a] uppercase tracking-tight">{title}</h2>
-                {description && <p className="text-gray-500 text-[13px] font-medium">{description}</p>}
+            <div className="mb-2">
+                <h2 className="fs-4 fw-bold text-dark text-uppercase mb-1" style={{ letterSpacing: '-0.02em' }}>{title}</h2>
+                {description && <p className="text-secondary small fw-medium mb-0">{description}</p>}
             </div>
-            <div className="grid gap-5 py-2">
+            <div className="d-flex flex-column gap-3 py-2">
                 {children}
             </div>
         </motion.div>
+
     )
 }

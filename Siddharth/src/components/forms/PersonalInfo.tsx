@@ -14,12 +14,12 @@ export function PersonalInfo() {
             title="Step 2: Personal Details"
             description="Please enter your personal information exactly as it appears on your ID."
         >
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="md:col-span-1 space-y-1.5">
-                    <label className="text-sm font-bold text-gray-700 ml-1">Salutation</label>
+            <div className="row g-3 mb-4">
+                <div className="col-12 col-md-3">
+                    <label className="form-label small fw-bold text-uppercase text-secondary mb-1">Salutation</label>
                     <select
                         {...register("salutation" as any, { required: "Required" })}
-                        className="flex h-12 w-full rounded-xl border border-gray-200 bg-white px-4 py-2 text-base focus:ring-2 focus:ring-[#f2ae1b] outline-none transition-all"
+                        className="form-select rounded-3 py-2"
                     >
                         <option value="Mr">Mr.</option>
                         <option value="Mrs">Mrs.</option>
@@ -27,7 +27,7 @@ export function PersonalInfo() {
                         <option value="Miss">Miss</option>
                     </select>
                 </div>
-                <div className="md:col-span-1">
+                <div className="col-12 col-md-3">
                     <Input
                         label="First Name"
                         placeholder="First Name"
@@ -35,14 +35,14 @@ export function PersonalInfo() {
                         error={(errors as any).firstName?.message}
                     />
                 </div>
-                <div className="md:col-span-1">
+                <div className="col-12 col-md-3">
                     <Input
                         label="Middle Name"
                         placeholder="Middle Name"
                         {...register("middleName" as any)}
                     />
                 </div>
-                <div className="md:col-span-1">
+                <div className="col-12 col-md-3">
                     <Input
                         label="Last Name"
                         placeholder="Last Name"
@@ -52,18 +52,19 @@ export function PersonalInfo() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                        <label className="text-sm font-medium text-gray-700 ml-1">Date of Birth</label>
-                        <div className="flex bg-gray-100 p-1 rounded-lg scale-90 origin-right">
+            <div className="row g-4 mb-4">
+                <div className="col-12 col-md-6">
+                    <div className="d-flex align-items-center justify-content-between mb-1">
+                        <label className="form-label small fw-bold text-uppercase text-secondary mb-0">Date of Birth</label>
+                        <div className="d-flex bg-light p-1 rounded-2">
                             <button
                                 type="button"
                                 onClick={() => setValue("dateOfBirthType", "AD")}
                                 className={cn(
-                                    "px-3 py-1 text-[10px] font-bold rounded-md transition-all",
-                                    dateOfBirthType === "AD" ? "bg-white shadow-sm text-[#0B3C5D]" : "text-gray-500"
+                                    "px-3 py-1 small fw-bold rounded-1 transition-all",
+                                    dateOfBirthType === "AD" ? "bg-white shadow-sm text-primary" : "text-muted"
                                 )}
+                                style={{ fontSize: '10px', border: 'none' }}
                             >
                                 A.D
                             </button>
@@ -71,9 +72,10 @@ export function PersonalInfo() {
                                 type="button"
                                 onClick={() => setValue("dateOfBirthType", "BS")}
                                 className={cn(
-                                    "px-3 py-1 text-[10px] font-bold rounded-md transition-all",
-                                    dateOfBirthType === "BS" ? "bg-white shadow-sm text-[#0B3C5D]" : "text-gray-500"
+                                    "px-3 py-1 small fw-bold rounded-1 transition-all",
+                                    dateOfBirthType === "BS" ? "bg-white shadow-sm text-primary" : "text-muted"
                                 )}
+                                style={{ fontSize: '10px', border: 'none' }}
                             >
                                 B.S
                             </button>
@@ -86,13 +88,13 @@ export function PersonalInfo() {
                     />
                 </div>
 
-                <div className="space-y-1.5">
-                    <label className="text-sm font-medium text-gray-700 ml-1">Nationality</label>
+                <div className="col-12 col-md-6">
+                    <label className="form-label small fw-bold text-uppercase text-secondary mb-1">Nationality</label>
                     <select
                         {...register("nationality", { required: "Nationality is required" })}
                         className={cn(
-                            "flex h-12 w-full rounded-xl border border-gray-200 bg-white px-4 py-2 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3C5D]",
-                            errors.nationality && "border-red-500"
+                            "form-select rounded-3 py-2",
+                            errors.nationality && "is-invalid"
                         )}
                     >
                         <option value="Nepalese">Nepalese</option>
@@ -101,28 +103,31 @@ export function PersonalInfo() {
                 </div>
             </div>
 
-            <div className="pt-4 space-y-4">
-                <div className="flex items-center gap-3">
+            <div className="pt-2">
+                <div className="form-check d-flex align-items-center gap-2">
                     <input
                         type="checkbox"
                         id="isNRN"
                         {...register("isNRN")}
-                        className="w-5 h-5 rounded border-gray-300 text-[#1ABC9C] focus:ring-[#1ABC9C]"
+                        className="form-check-input"
                     />
-                    <label htmlFor="isNRN" className="text-sm font-medium text-gray-700">
+                    <label htmlFor="isNRN" className="form-check-label small fw-medium text-dark">
                         I am a Non-Resident Nepalese (NRN)
                     </label>
                 </div>
 
                 {watch("isNRN") && (
-                    <Input
-                        label="NRN Card Number"
-                        placeholder="Enter your NRN number"
-                        {...register("nrnNumber", { required: "NRN number is required if checked" })}
-                        error={errors.nrnNumber?.message}
-                    />
+                    <div className="mt-3">
+                        <Input
+                            label="NRN Card Number"
+                            placeholder="Enter your NRN number"
+                            {...register("nrnNumber", { required: "NRN number is required if checked" })}
+                            error={errors.nrnNumber?.message}
+                        />
+                    </div>
                 )}
             </div>
         </FormStepLayout>
+
     )
 }
