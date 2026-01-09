@@ -20,7 +20,6 @@ export function Stepper({ steps, currentStep }: StepperProps) {
 
             {steps.map((step, index) => {
                 const isActive = index <= currentStep
-                const isCurrent = index === currentStep
 
                 return (
                     <div key={step} className="flex flex-col items-center gap-3">
