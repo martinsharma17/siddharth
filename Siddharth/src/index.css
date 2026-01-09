@@ -119,11 +119,9 @@ body {
 }
 
 .modern-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #334155;
   margin-bottom: 0.5rem;
   display: block;
 }

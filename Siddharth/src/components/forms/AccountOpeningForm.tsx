@@ -51,79 +51,65 @@ export function AccountOpeningForm() {
         }
     }
 
+
     /**
      * Consumes randomuser.me API to auto-fill the form with demo data
      */
     const fetchAndFillData = async () => {
         try {
-            // Fetching data from the Random User API
             const response = await fetch('https://randomuser.me/api/');
             const data = await response.json();
             const user = data.results[0];
 
-            // Mapping API response to our Form structure using setValue
             if (user) {
-                // Personal Details
                 setValue("firstName", user.name.first);
                 setValue("lastName", user.name.last);
                 setValue("email", user.email);
-                setValue("mobileNumber", user.phone.replace(/[\(\)\-\s]/g, '').substring(0, 10)); // Clean phone for demo
+                setValue("mobileNumber", user.phone.replace(/[\(\)\-\s]/g, '').substring(0, 10));
 
-                // Date of Birth (A.D.)
                 const dobAD = user.dob.date.split('T')[0];
                 setValue("dateOfBirthAD", dobAD);
-
-                // Manually trigger AD to BS conversion for the fetched date
                 const convertedBS = adToBs(dobAD);
-                if (convertedBS) {
-                    setValue("dateOfBirthBS", convertedBS);
-                }
+                if (convertedBS) setValue("dateOfBirthBS", convertedBS);
 
-                // Salutation mapping
                 const title = user.name.title;
-                if (['Mr', 'Mrs', 'Miss'].includes(title)) {
-                    setValue("salutation", title as any);
-                }
+                if (['Mr', 'Mrs', 'Miss'].includes(title)) setValue("salutation", title as any);
 
-                console.log("Form auto-filled with demo data:", user);
+
+                // ID
+                setValue("idNumber", Math.random().toString().slice(2, 14));
+                setValue("idIssueDistrict", "Kathmandu");
             }
         } catch (error) {
             console.error("Error fetching demo data:", error);
-            alert("Failed to fetch demo data. Please check your connection.");
         }
     }
+
 
     return (
         <div className="min-vh-100 bg-white d-flex flex-column">
             <Header />
 
-            {/* Premium Hero Section */}
-            <div className="hero-gradient py-5 position-relative overflow-hidden text-white shadow-lg">
-                <div className="hero-pattern"></div>
-                <div className="container position-relative z-1 py-5 text-center">
-                    <span className="badge bg-white text-dark mb-3 px-3 py-2 rounded-pill fw-bold" style={{ fontSize: '10px', letterSpacing: '2px' }}>VERIFIED PORTAL</span>
-                    <h1 className="display-4 fw-bold mb-3" style={{ letterSpacing: '-1px' }}>Account Opening Portal</h1>
-                    <p className="lead opacity-75 mb-5 mx-auto" style={{ maxWidth: '600px' }}>Join Siddhartha Bank today and experience the future of secure digital banking in Nepal.</p>
-
-                    <div className="glass-card p-4 mx-auto border-0 bg-white bg-opacity-10" style={{ maxWidth: '450px' }}>
-                        <label className="modern-label text-white opacity-75">Selected Banking Product</label>
-                        <select
-                            {...register("accountProduct")}
-                            className="form-select border-0 shadow-lg text-dark fw-bold mb-3"
-                            style={{ borderRadius: '12px', padding: '12px' }}
-                        >
-                            <option value="Siddhartha Bachat-SVNR">Siddhartha Bachat-SVNR (Premium)</option>
-                            <option value="Siddhartha Normal Saving">Siddhartha Normal Saving</option>
-                        </select>
-                        <button
-                            type="button"
-                            onClick={fetchAndFillData}
-                            className="btn btn-warning w-100 fw-bold rounded-pill text-white shadow"
-                            style={{ padding: '12px' }}
-                        >
-                            ✨ Magic Auto-fill Demo
-                        </button>
-                    </div>
+            {/* Simple Yellow Hero Section matches screenshot */}
+            <div className="bg-warning py-5 text-center text-dark position-relative shadow-sm" style={{ backgroundColor: '#fbbf24' }}>
+                <h2 className="fw-bold mb-3">Account Opening Form</h2>
+                <div className="mx-auto" style={{ maxWidth: '400px' }}>
+                    <p className="mb-2 fw-medium">You have selected the product form for</p>
+                    <select
+                        {...register("accountProduct")}
+                        className="form-select text-center border-0 shadow-sm fw-bold mb-3"
+                        style={{ height: '50px', borderRadius: '4px' }}
+                    >
+                        <option value="Siddhartha Bachat-SVNR">Siddhartha Bachat-SVNR</option>
+                        <option value="Siddhartha Normal Saving">Siddhartha Normal Saving</option>
+                    </select>
+                    <button
+                        type="button"
+                        onClick={fetchAndFillData}
+                        className="btn btn-sm btn-link text-dark text-decoration-none opacity-50 hover-opacity-100 fw-medium"
+                    >
+                        ✨ Auto-fill Form
+                    </button>
                 </div>
             </div>
 
@@ -131,49 +117,52 @@ export function AccountOpeningForm() {
                 {!isSubmitted ? (
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {/* Existing Account Toggle */}
-                        <div className="text-center mb-5 pb-4 border-bottom border-light">
-                            <label className="modern-label h6 mb-4">Account Status Identification</label>
-                            <div className="d-flex align-items-center justify-content-center gap-4">
-                                <span className={`fw-bold transition-all ${!isExisting ? 'text-primary' : 'text-muted'}`} style={{ fontSize: '14px' }}>New Customer</span>
+                        <div className="text-center mb-4">
+                            <label className="fw-bold mb-2">Do you have an existing account with Siddhartha Bank?</label>
+                            <div className="d-flex align-items-center justify-content-center gap-2">
+                                <span className={!isExisting ? 'fw-bold' : 'text-muted'}>No</span>
                                 <div className="form-check form-switch p-0 m-0">
                                     <input
-                                        className="form-check-input ms-0 shadow-none cursor-pointer"
+                                        className="form-check-input ms-0"
                                         type="checkbox"
                                         role="switch"
-                                        style={{ width: '3.5em', height: '1.75em', backgroundColor: isExisting ? '#f2ae1b' : '#e2e8f0' }}
+                                        style={{ width: '3em', height: '1.5em' }}
                                         {...register("isExistingCustomer")}
                                     />
                                 </div>
-                                <span className={`fw-bold transition-all ${isExisting ? 'text-primary' : 'text-muted'}`} style={{ fontSize: '14px' }}>Existing Customer</span>
+                                <span className={isExisting ? 'fw-bold' : 'text-muted'}>Yes</span>
                             </div>
-                            <p className="small text-muted mt-3">Do you currently hold an active account with us?</p>
                         </div>
 
                         <div className="glass-card p-4 p-md-5 mb-5">
-                            {/* Section 1: Account Parameters */}
-                            <div className="mb-5">
-                                <h4 className="section-title">Account Specifications</h4>
-                                <div className="row g-4 pt-3">
+                            {/* Gray Box for Account Params */}
+                            <div className="bg-light p-4 rounded-3 mb-4">
+                                <div className="row g-4 leading-relaxed">
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Account Type *</label>
-                                        <div className="d-flex gap-3">
+                                        <label className="modern-label">Account Type <span className="text-danger">*</span></label>
+                                        <div className="d-flex gap-3 align-items-center mt-2">
                                             {['Individual', 'Minor'].map((type) => (
-                                                <div key={type} className="flex-grow-1">
-                                                    <input type="radio" className="btn-check" value={type} {...register("accountType")} id={`accType${type}`} />
-                                                    <label className="btn btn-outline-warning w-100 py-3 rounded-3 fw-bold small" htmlFor={`accType${type}`}>{type}</label>
+                                                <div key={type} className="form-check">
+                                                    <input type="radio" className="form-check-input" value={type} {...register("accountType")} id={`accType${type}`} />
+                                                    <label className="form-check-label small" htmlFor={`accType${type}`}>{type}</label>
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Salutation *</label>
-                                        <select {...register("salutation")} className="form-select modern-input">
-                                            {['Mr', 'Mrs', 'M/S', 'Miss', 'Minor'].map(s => <option key={s} value={s}>{s}</option>)}
-                                        </select>
+                                        <label className="modern-label">Salutation <span className="text-danger">*</span></label>
+                                        <div className="d-flex gap-3 align-items-center mt-2 flex-wrap">
+                                            {['Mr', 'Mrs', 'M/S', 'Miss', 'Minor'].map(s => (
+                                                <div key={s} className="form-check">
+                                                    <input type="radio" value={s} {...register("salutation")} className="form-check-input" id={`sal${s}`} />
+                                                    <label className="form-check-label small" htmlFor={`sal${s}`}>{s}</label>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Nepalese Citizen Applying From *</label>
-                                        <select {...register("applyingFromLocation")} className="form-select modern-input">
+                                        <label className="modern-label">Nepalese Citizen Applying From <span className="text-danger">*</span></label>
+                                        <select {...register("applyingFromLocation")} className="form-select border-0 bg-transparent fw-bold text-decoration-underline ps-0">
                                             <option>Inside the Country</option>
                                             <option>Outside the Country</option>
                                         </select>
@@ -181,12 +170,11 @@ export function AccountOpeningForm() {
                                 </div>
                             </div>
 
-                            {/* Section 2: Personal Identity */}
-                            <div className="mb-5">
-                                <h4 className="section-title">Personal Details</h4>
+                            {/* Personal Details (No Header) */}
+                            <div className="mb-4">
                                 <div className="row g-4">
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">First Name *</label>
+                                        <label className="modern-label">First Name <span className="text-danger">*</span></label>
                                         <input type="text" className={`form-control modern-input ${errors.firstName ? 'is-invalid border-danger' : ''}`} placeholder="e.g. Siddharth" {...register("firstName", { required: "First name is required" })} />
                                         {errors.firstName && <div className="text-danger small mt-1 fw-bold">{errors.firstName.message}</div>}
                                     </div>
@@ -195,12 +183,12 @@ export function AccountOpeningForm() {
                                         <input type="text" className="form-control modern-input" placeholder="Optional" {...register("middleName")} />
                                     </div>
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Last Name *</label>
+                                        <label className="modern-label">Last Name <span className="text-danger">*</span></label>
                                         <input type="text" className={`form-control modern-input ${errors.lastName ? 'is-invalid border-danger' : ''}`} placeholder="e.g. Sharma" {...register("lastName", { required: "Last name is required" })} />
                                         {errors.lastName && <div className="text-danger small mt-1 fw-bold">{errors.lastName.message}</div>}
                                     </div>
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Mobile No *</label>
+                                        <label className="modern-label">Mobile No <span className="text-danger">*</span></label>
                                         <input type="text" className={`form-control modern-input ${errors.mobileNumber ? 'is-invalid border-danger' : ''}`} placeholder="+977-98XXXXXXXX" {...register("mobileNumber", { required: "Mobile number is required", pattern: { value: /^[0-9]{10}$/, message: "Must be a valid 10-digit number" } })} />
                                         {errors.mobileNumber && <div className="text-danger small mt-1 fw-bold">{errors.mobileNumber.message}</div>}
                                     </div>
@@ -209,19 +197,18 @@ export function AccountOpeningForm() {
                                         <input type="text" className="form-control modern-input" placeholder="01-XXXXXXX" {...register("phoneNumber")} />
                                     </div>
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Email Address *</label>
+                                        <label className="modern-label">Email Address <span className="text-danger">*</span></label>
                                         <input type="email" className={`form-control modern-input ${errors.email ? 'is-invalid border-danger' : ''}`} placeholder="name@example.com" {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email format" } })} />
                                         {errors.email && <div className="text-danger small mt-1 fw-bold">{errors.email.message}</div>}
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Section 3: Legal Dates & Origin */}
-                            <div className="mb-5">
-                                <h4 className="section-title">Birth & Origin</h4>
+                            {/* Dates & Origin (No Header) */}
+                            <div className="mb-4">
                                 <div className="row g-4">
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Date of Birth (B.S.) *</label>
+                                        <label className="modern-label">Date of Birth (B.S.) <span className="text-danger">*</span></label>
                                         <div className="input-group">
                                             <span className="input-group-text bg-white border-end-0 rounded-start-2 px-3 modern-input"><Calendar size={18} className="text-warning" /></span>
                                             <NepaliDatePicker
@@ -232,7 +219,7 @@ export function AccountOpeningForm() {
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Date of Birth (A.D.) *</label>
+                                        <label className="modern-label">Date of Birth (A.D.) <span className="text-danger">*</span></label>
                                         <div className="input-group">
                                             <span className="input-group-text bg-white border-end-0 rounded-start-2 px-3 modern-input"><Calendar size={18} className="text-warning" /></span>
                                             <input
@@ -244,7 +231,7 @@ export function AccountOpeningForm() {
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-4">
-                                        <label className="modern-label">Applying From Country *</label>
+                                        <label className="modern-label">Applying From Country <span className="text-danger">*</span></label>
                                         <select {...register("applyingFromCountry")} className="form-select modern-input">
                                             <option>Select Country</option>
                                             <option>Nepal</option>
@@ -273,33 +260,23 @@ export function AccountOpeningForm() {
                                 </div>
                             </div>
 
-                            {/* Section 4: Identification */}
-                            <div className="mb-5">
-                                <h4 className="section-title">Legal Identification</h4>
+                            <div className="mb-4">
                                 <div className="row g-4">
-                                    <div className="col-12 col-md-6">
-                                        <label className="modern-label">National ID Number *</label>
-                                        <input type="text" className={`form-control modern-input ${errors.idNumber ? 'is-invalid border-danger' : ''}`} placeholder="XXXX-XXXX" {...register("idNumber",)} />
+                                    <div className="col-12 col-md-4">
+                                        <label className="modern-label">National ID Number <span className="text-danger">*</span></label>
+                                        <input type="text" className={`form-control modern-input ${errors.idNumber ? 'is-invalid border-danger' : ''}`} placeholder="XXXX-XXXX" {...register("idNumber")} />
                                         {errors.idNumber && <div className="text-danger small mt-1 fw-bold">{errors.idNumber.message}</div>}
                                     </div>
-                                    <div className="col-12 col-md-6">
-                                        <label className="modern-label">National ID Issue District *</label>
-                                        <select {...register("idIssueDistrict")} className="form-select modern-input">
-                                            <option>Select District</option>
-                                            <option>Kathmandu</option>
-                                            <option>Lalitpur</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-12 col-md-6">
-                                        <label className="modern-label">National ID Issue Date BS *</label>
+                                    <div className="col-12 col-md-4">
+                                        <label className="modern-label">National ID Issue Date BS <span className="text-danger">*</span></label>
                                         <NepaliDatePicker
                                             value={idBS || ""}
                                             handler={(val: string) => handleBSChange("idIssueDateBS", "idIssueDateAD", val)}
                                             className="form-control modern-input"
                                         />
                                     </div>
-                                    <div className="col-12 col-md-6">
-                                        <label className="modern-label">National ID Issue Date AD *</label>
+                                    <div className="col-12 col-md-4">
+                                        <label className="modern-label">National ID Issue Date AD <span className="text-danger">*</span></label>
                                         <input
                                             type="date"
                                             className="form-control modern-input"
@@ -307,13 +284,14 @@ export function AccountOpeningForm() {
                                             onChange={(e) => handleADChange("idIssueDateAD", "idIssueDateBS", e.target.value)}
                                         />
                                     </div>
-                                    <div className="col-12 col-md-12">
-                                        <label className="modern-label text-dark">Human Verification Code *</label>
-                                        <div className="d-flex align-items-center gap-3">
-                                            <div className="premium-captcha d-flex align-items-center justify-content-center shadow-sm">SF2M9</div>
-                                            <button type="button" className="btn btn-link text-warning p-0 text-decoration-none fw-bold small">Reload Image</button>
-                                            <input type="text" className="form-control modern-input flex-grow-1" placeholder="Type the characters seen above" />
-                                        </div>
+
+                                    <div className="col-12 col-md-4">
+                                        <label className="modern-label">National ID Issue District <span className="text-danger">*</span></label>
+                                        <select {...register("idIssueDistrict")} className="form-select modern-input">
+                                            <option>Select District</option>
+                                            <option>Kathmandu</option>
+                                            <option>Lalitpur</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -323,8 +301,8 @@ export function AccountOpeningForm() {
                                     <HelpCircle size={16} className="me-2 text-warning" />
                                     All information provided is securely encrypted and processed according to the Data Privacy Act.
                                 </p>
-                                <button type="submit" className="btn btn-premium btn-lg px-5">
-                                    Submit Application
+                                <button type="submit" className="btn btn-warning btn-lg px-5 fw-bold text-white shadow-sm" style={{ backgroundColor: '#eab308' }}>
+                                    Proceed to Account Opening Form
                                 </button>
                             </div>
                         </div>

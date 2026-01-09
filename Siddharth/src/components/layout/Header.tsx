@@ -1,19 +1,24 @@
 import { Facebook, Twitter, Instagram, Headset } from 'lucide-react'
+import logo from '../../assets/logo.png'
 
 export function Header() {
     return (
         <header className="bg-white py-3 px-3 px-md-5 sticky-top shadow-sm border-bottom border-light">
             <div className="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
                 <div className="d-flex align-items-center gap-3">
-                    <div className="bg-warning d-flex align-items-center justify-content-center rounded-circle shadow-sm" style={{ width: '45px', height: '45px' }}>
-                        <span className="text-white fw-800 fs-4">S</span>
-                    </div>
-                    <div className="d-flex flex-column">
-                        <span className="fs-4 fw-800 text-dark lh-1" style={{ letterSpacing: '-1.5px', fontFamily: "'Poppins', sans-serif" }}>
-                            SIDDHARTHA<span className="text-warning">BANK</span>
-                        </span>
-                        <span className="text-muted fw-bold" style={{ fontSize: '9px', letterSpacing: '3px' }}>NEPAL'S DIGITAL GATEWAY</span>
-                    </div>
+                    <img
+                        src={logo}
+                        alt="Siddhartha Bank Logo"
+                        className="img-fluid"
+                        style={{ height: '55px', objectFit: 'contain' }}
+                    />
+                    <style>{`
+                        @media (max-width: 768px) {
+                            img[alt="Siddhartha Bank Logo"] {
+                                height: 40px !important;
+                            }
+                        }
+                    `}</style>
                 </div>
 
                 <div className="d-flex flex-column align-items-center align-items-md-end gap-2">
