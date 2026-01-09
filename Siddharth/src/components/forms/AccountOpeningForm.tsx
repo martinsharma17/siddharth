@@ -6,7 +6,6 @@ import { Calendar, HelpCircle } from "lucide-react"
 import NepaliDatePicker from "@sbmdkl/nepali-datepicker-reactjs"
 import "@sbmdkl/nepali-datepicker-reactjs/dist/index.css"
 import { bsToAd, adToBs } from "../../lib/dateUtils"
-import { useEffect } from "react"
 
 export function AccountOpeningForm() {
     const methods = useForm<AccountOpeningFormData>({
